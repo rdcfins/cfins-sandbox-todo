@@ -1,14 +1,26 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 
+let renderCount = 0;
+
 export default function Nav({ todos = [] }) {
+    const [time, setTimer] = useState("00:00:00");
+
+    useEffect(() => {
+        setInterval(() => {
+            setTimer(new Date().toLocaleTimeString());
+        }, 1000);
+        return () => {
+        }
+    }, [])
+    console.log("Nav Rendered", renderCount++);
     return (
         <nav>
             <ul>
                 <li><a href="/contact">Contact Us</a></li>
             </ul>
-            <Link href="/">Home - Todos Completed {todos.filter(todo => todo.completed).length}</Link>
+            <Link href="/">Home - Current Completed time {time}</Link>
             <Link href="/about"> - About Us</Link>
         </nav>
     )

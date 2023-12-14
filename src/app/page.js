@@ -28,7 +28,7 @@ export default function Home() {
       localStorage.setItem("todo", todos);
     };
   }, [todos, todos.length]);
-
+  console.log("Home Rendered");
   return (
     <main className={styles.main}>
       <div>

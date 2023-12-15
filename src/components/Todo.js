@@ -1,15 +1,14 @@
 import styles from "../app/page.module.css";
 import TodoList from "@exp/components/TodoList";
 
-export default function Todo({ todos }) {
+export default function Todo({ todos, setTodos}) {
   console.log("Todo Rendered", todos);
   async function handleSubmit(e) {
     e.preventDefault();
-    let todos_parsed = await JSON.parse(todos);
     let data = await fetch("/api/todo", {
       method: "POST",
       body: JSON.stringify([
-        ...todos_parsed,
+        ...todos,
         {
           id: Math.random() * 100,
           name: e.target.todo.value,
@@ -22,7 +21,7 @@ export default function Todo({ todos }) {
     });
     data = await data.json();
     console.log("Response", data);
-    setTodos(JSON.stringify(data));
+    setTodos(data);
   }
 
   return (
@@ -33,7 +32,7 @@ export default function Todo({ todos }) {
         <input type="text" id="todo" />
         <button>Add</button>
       </div>
-      {/* <TodoList todos={todos} /> */}
+      <TodoList todos={todos} setTodos={setTodos} />
     </form>
   );
 };

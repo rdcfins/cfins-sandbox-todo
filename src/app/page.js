@@ -2,25 +2,19 @@
 
 import styles from "./page.module.css";
 import Todo from "@exp/components/Todo";
-import React from "react";
+import React, {useState} from "react";
 import useInitialData from "@exp/util/useInitialData";
 
-console.log("Create New Event");
-
 export default function Home() {
-  const [todos, setTodos] = useInitialData();
-  // const [initalTodo, setInitalTodo] = useInitialData();
-  // console.log(initalTodo);
-  // const [todos, setTodos] = useState(data);
-  console.log(todos);
+  const { data: todos_init, error, isLoading } = useInitialData();
+  const [todos, setTodos] = useState(todos_init);
 
-  
-
-  console.log("Home Rendered");
+  if (error) return <div>failed to load</div>
+  if (isLoading) return <div>loading...</div>
   return (
     <main className={styles.main}>
       <div>
-        <Todo todos={todos}/>
+        <Todo todos={todos ?? todos_init} setTodos={setTodos}/>
       </div>
     </main>
   );

@@ -8,11 +8,11 @@ export default function Nav({ todos = [] }) {
     const [time, setTimer] = useState("00:00:00");
 
     useEffect(() => {
+        let intervalId;
         setInterval(() => {
-            setTimer(new Date().toLocaleTimeString());
+            intervalId = setTimer(new Date().toLocaleTimeString());
         }, 1000);
-        return () => {
-        }
+        return () => clearInterval(intervalId);
     }, [])
     console.log("Nav Rendered", renderCount++);
     return (

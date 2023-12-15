@@ -1,18 +1,17 @@
-import { useState, useEffect, useMemo } from "react";
-
+import useSWR, { preload } from 'swr'
 let controller;
 
 /**
  * Fetch initial data
  * @param {Function} setCallback
  */
-export const getInitialData = async (setDataCb, loadingStateValue) => {
+export const getInitialData = async (url) => {
   controller = new AbortController();
   const signal = controller.signal;
 //   setDataCb(loadingStateValue);
   if (typeof window !== "undefined") {
     console.log("Client Side");
-    const result = await fetch(`http://localhost:3000/api/todo`, {
+    const result = await fetch(url, {
       method: "GET",
       cache: "force-cache",
       signal
@@ -22,34 +21,12 @@ export const getInitialData = async (setDataCb, loadingStateValue) => {
   }
 };
 
+// preload data
+preload('http://localhost:3000/api/todo', getInitialData);
+
 // Export data
 const useInitialData = () => {
-  const [data_state, setData] = useState(undefined);
-
-  // If data_state changes update listener to use new data
-//   useEffect(() => {
-//     addEventListener("storage", (e) => {
-//       let storeData = data_state ?? e.detail;
-//       localStorage.setItem("todo", JSON.stringify(storeData || []));
-//     });
-//     return () => {
-//       if (controller) {
-//         controller.abort();
-//         console.log("Data fetch aborted");
-//       }
-//       removeEventListener("storage", null);
-//     };
-//   }, [data_state]);
-
-  // If data has been set by state dispatch
-  if (data_state) return [data_state, setData];
-
-  try {
-    // Initial Data fetching and parsing
-    // dispatchEvent(new CustomEvent("storage", { detail: getInitialData(setData, []) }));
-  } catch (error) {
-    return [error, setData];
-  }
+     return  useSWR(`http://localhost:3000/api/todo`, getInitialData);
 };
 
 export default useInitialData;

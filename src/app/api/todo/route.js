@@ -9,6 +9,18 @@ export async function POST(req, res) {
     }
 }
 
+export async function GET(req, res) {
+  try {
+      return new Response(JSON.stringify([
+        { id: 1, name: "Task 1", completed: false },
+        { id: 2, name: "Task 2", completed: false },
+        { id: 3, name: "Task 3", completed: false },
+      ]));
+  } catch (error) {
+      return new Response(error);
+  }
+}
+
 export const config = {
     api: {
       bodyParser: {

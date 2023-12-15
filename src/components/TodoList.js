@@ -2,13 +2,14 @@
 import React, { useState } from "react";
 import styles from "../app/page.module.css";
 
-export default function TodoList({ todos, setTodos }) {
+export default function TodoList({ todos }) {
+  const [todos_state, setClicked] = useState(todos);
 
   function handleClicked(e) {
     e.target.checked = !!e.target.checked;
-    setTodos(
+    setClicked(
       JSON.stringify(
-        todos.map((todo) => {
+        todos_state.map((todo) => {
           return todo.id === Number(e.target.dataset.setid)
             ? { ...todo, completed: e.target.checked }
             : todo;
@@ -19,7 +20,7 @@ export default function TodoList({ todos, setTodos }) {
 
   return (
     <ul className={styles.grid}>
-      {todos.map((todo) => (
+      {todos_state.map((todo) => (
         <li className={styles.card} key={todo.id}>
           <h3>{todo.name}</h3>
           <input

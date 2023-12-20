@@ -26,7 +26,7 @@ preload('http://localhost:3000/api/todo', getInitialData);
 
 // Export data
 const useInitialData = () => {
-     return  useSWR(`http://localhost:3000/api/todo`, getInitialData);
+     return useSWR(`http://localhost:3000/api/todo`, getInitialData);
 };
 
 export default useInitialData;

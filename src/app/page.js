@@ -5,7 +5,8 @@ import Todo from "@exp/components/Todo";
 import React, {useState} from "react";
 import useInitialData from "@exp/util/useInitialData";
 
-export default function Home() {
+export default function Home({repo}) {
+  console.log("Home", repo);
   const { data: todos_init, error, isLoading } = useInitialData();
   const [todos, setTodos] = useState(todos_init);
 

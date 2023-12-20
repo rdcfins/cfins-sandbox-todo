@@ -21,12 +21,12 @@ export async function GET(req, res) {
   }
 }
 
-export const config = {
-    api: {
-      bodyParser: {
-        sizeLimit: '1mb',
-      },
-    },
-    // Specifies the maximum allowed duration for this function to execute (in seconds)
-    maxDuration: 5,
-  }
+// export const config = {
+//     api: {
+//       bodyParser: {
+//         sizeLimit: '1mb',
+//       },
+//     },
+//     // Specifies the maximum allowed duration for this function to execute (in seconds)
+//     maxDuration: 5,
+//   }
